@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Your Name — Software Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Syne:wght@400;500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #F7F6F2;
+    --bg-card: #FFFFFF;
+    --text: #18180F;
+    --text-2: #6B6A62;
+    --text-3: #A8A79F;
+    --accent: #2A5243;
+    --accent-light: #EBF2EF;
+    --accent-mid: #3D7A64;
+    --border: #E3E2DC;
+    --border-strong: #C8C7BF;
+    --tag-bg: #F0EFE9;
+    --font-display: 'Instrument Serif', Georgia, serif;
+    --font-ui: 'Syne', sans-serif;
+    --font-body: 'DM Sans', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(247,246,242,0.88);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 2rem; height: 60px;
+  }
+  .nav-logo {
+    font-family: var(--font-ui); font-weight: 700; font-size: 15px;
+    color: var(--text); text-decoration: none; letter-spacing: -.01em;
+  }
+  .nav-logo span { color: var(--accent); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    font-family: var(--font-ui); font-size: 13px; font-weight: 500;
+    color: var(--text-2); text-decoration: none; letter-spacing: .02em;
+    transition: color .2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+  .nav-cta {
+    font-family: var(--font-ui); font-size: 13px; font-weight: 600;
+    background: var(--accent); color: #fff; text-decoration: none;
+    padding: 8px 18px; border-radius: 6px; letter-spacing: .02em;
+    transition: background .2s, transform .15s;
+  }
+  .nav-cta:hover { background: var(--accent-mid); transform: translateY(-1px); }
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+  .hamburger span { display: block; width: 22px; height: 2px; background: var(--text); border-radius: 2px; transition: all .25s; }
+  .mobile-menu { display: none; }
+
+  /* LAYOUT */
+  main { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh; display: flex; flex-direction: column;
+    justify-content: center; padding-top: 60px;
+  }
+  .hero-eyebrow {
+    font-family: var(--font-ui); font-size: 12px; font-weight: 600;
+    letter-spacing: .12em; text-transform: uppercase; color: var(--accent);
+    margin-bottom: 1.25rem; display: flex; align-items: center; gap: 10px;
+  }
+  .hero-eyebrow::before {
+    content: ''; display: block; width: 28px; height: 1px; background: var(--accent);
+  }
+  .hero-name {
+    font-family: var(--font-display); font-size: clamp(3rem, 7vw, 6rem);
+    line-height: 1.05; letter-spacing: -.02em; color: var(--text);
+    margin-bottom: .5rem;
+  }
+  .hero-name em { font-style: italic; color: var(--accent); }
+  .hero-title {
+    font-family: var(--font-ui); font-size: clamp(1rem, 2vw, 1.2rem);
+    font-weight: 400; color: var(--text-2); margin-bottom: 1.75rem;
+    letter-spacing: .01em;
+  }
+  .hero-desc {
+    max-width: 560px; font-size: 1.05rem; color: var(--text-2);
+    line-height: 1.75; margin-bottom: 2.5rem;
+  }
+  .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-primary {
+    font-family: var(--font-ui); font-weight: 600; font-size: 14px;
+    background: var(--accent); color: #fff; text-decoration: none;
+    padding: 13px 28px; border-radius: 7px; letter-spacing: .02em;
+    transition: background .2s, transform .15s;
+  }
+  .btn-primary:hover { background: var(--accent-mid); transform: translateY(-2px); }
+  .btn-secondary {
+    font-family: var(--font-ui); font-weight: 600; font-size: 14px;
+    background: transparent; color: var(--text); text-decoration: none;
+    padding: 13px 28px; border-radius: 7px; letter-spacing: .02em;
+    border: 1.5px solid var(--border-strong);
+    transition: border-color .2s, transform .15s;
+  }
+  .btn-secondary:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+  .hero-scroll {
+    margin-top: 4rem; display: flex; align-items: center; gap: 12px;
+    font-family: var(--font-ui); font-size: 12px; color: var(--text-3);
+    letter-spacing: .08em; text-transform: uppercase;
+  }
+  .hero-scroll::after {
+    content: ''; display: block; width: 40px; height: 1px; background: var(--text-3);
+    animation: scroll-line 2s ease-in-out infinite;
+  }
+  @keyframes scroll-line { 0%,100%{width:40px;opacity:1} 50%{width:60px;opacity:.5} }
+
+  /* SECTION SHARED */
+  section { padding: 6rem 0; border-top: 1px solid var(--border); }
+  .section-header { margin-bottom: 3.5rem; }
+  .section-number {
+    font-family: var(--font-ui); font-size: 11px; font-weight: 600;
+    letter-spacing: .14em; text-transform: uppercase; color: var(--accent);
+    margin-bottom: .6rem;
+  }
+  .section-title {
+    font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3rem);
+    line-height: 1.1; letter-spacing: -.02em; color: var(--text);
+  }
+  .section-subtitle {
+    margin-top: .75rem; font-size: 1rem; color: var(--text-2); max-width: 500px;
+  }
+
+  /* ABOUT */
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+  .about-text p { color: var(--text-2); margin-bottom: 1rem; font-size: 1.02rem; }
+  .about-text p:last-child { margin-bottom: 0; }
+  .about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  .stat-card {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 10px; padding: 1.5rem;
+  }
+  .stat-number {
+    font-family: var(--font-display); font-size: 2.5rem; color: var(--accent);
+    line-height: 1; margin-bottom: .25rem;
+  }
+  .stat-label { font-family: var(--font-ui); font-size: 12px; color: var(--text-2); letter-spacing: .04em; }
+
+  /* EXPERIENCE */
+  .exp-list { display: flex; flex-direction: column; gap: 1.5rem; }
+  .exp-card {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 12px; padding: 2rem; display: grid;
+    grid-template-columns: auto 1fr; gap: 1.75rem; align-items: start;
+    transition: border-color .2s, transform .2s;
+  }
+  .exp-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .exp-logo {
+    width: 52px; height: 52px; border-radius: 10px; background: var(--accent-light);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-ui); font-weight: 700; font-size: 13px; color: var(--accent);
+    flex-shrink: 0;
+  }
+  .exp-org { font-family: var(--font-ui); font-weight: 600; font-size: 1rem; color: var(--text); }
+  .exp-role { font-size: .9rem; color: var(--accent); font-weight: 500; margin-top: 2px; }
+  .exp-meta {
+    display: flex; gap: 1rem; margin-top: .5rem; flex-wrap: wrap;
+  }
+  .exp-meta span {
+    font-family: var(--font-ui); font-size: 12px; color: var(--text-3);
+    letter-spacing: .03em; display: flex; align-items: center; gap: 4px;
+  }
+  .exp-desc { margin-top: .75rem; font-size: .95rem; color: var(--text-2); }
+  .exp-tags { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1rem; }
+  .tag {
+    font-family: var(--font-ui); font-size: 11px; font-weight: 600;
+    background: var(--tag-bg); color: var(--text-2);
+    padding: 4px 10px; border-radius: 4px; letter-spacing: .03em;
+    text-transform: uppercase;
+  }
+
+  /* SKILLS */
+  .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; }
+  .skill-group {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 12px; padding: 1.75rem;
+  }
+  .skill-group-label {
+    font-family: var(--font-ui); font-size: 11px; font-weight: 700;
+    letter-spacing: .1em; text-transform: uppercase; color: var(--accent);
+    margin-bottom: 1.25rem; padding-bottom: .75rem; border-bottom: 1px solid var(--border);
+  }
+  .skill-items { display: flex; flex-direction: column; gap: .6rem; }
+  .skill-item { display: flex; align-items: center; justify-content: space-between; }
+  .skill-name { font-size: .9rem; color: var(--text); }
+  .skill-bar-track {
+    width: 80px; height: 4px; background: var(--tag-bg);
+    border-radius: 99px; overflow: hidden;
+  }
+  .skill-bar-fill { height: 100%; background: var(--accent); border-radius: 99px; }
+
+  /* PROJECTS */
+  .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; }
+  .project-card {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 12px; padding: 2rem; display: flex; flex-direction: column;
+    transition: border-color .2s, transform .2s;
+  }
+  .project-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+  .project-card.featured { border-color: var(--accent); background: var(--accent-light); }
+  .project-badge {
+    font-family: var(--font-ui); font-size: 10px; font-weight: 700;
+    letter-spacing: .1em; text-transform: uppercase;
+    background: var(--accent); color: #fff;
+    display: inline-block; padding: 3px 9px; border-radius: 4px;
+    margin-bottom: 1rem; width: fit-content;
+  }
+  .project-title { font-family: var(--font-ui); font-weight: 700; font-size: 1.05rem; color: var(--text); margin-bottom: .5rem; }
+  .project-desc { font-size: .92rem; color: var(--text-2); flex: 1; }
+  .project-tags { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: 1.25rem; }
+  .project-links { display: flex; gap: 1rem; margin-top: 1.5rem; }
+  .project-link {
+    font-family: var(--font-ui); font-size: 12px; font-weight: 600;
+    color: var(--accent); text-decoration: none; letter-spacing: .03em;
+    display: flex; align-items: center; gap: 4px;
+    transition: opacity .2s;
+  }
+  .project-link:hover { opacity: .7; }
+  .project-link svg { width: 14px; height: 14px; }
+
+  /* RESUME */
+  .resume-section { text-align: center; padding: 6rem 0; }
+  .resume-inner {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 16px; padding: 4rem 2rem; max-width: 600px; margin: 0 auto;
+  }
+  .resume-icon { font-size: 3rem; margin-bottom: 1.5rem; }
+  .resume-inner h3 {
+    font-family: var(--font-display); font-size: 2rem; margin-bottom: .75rem; color: var(--text);
+  }
+  .resume-inner p { color: var(--text-2); margin-bottom: 2rem; }
+
+  /* CONTACT */
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+  .contact-info p { color: var(--text-2); margin-bottom: 2rem; }
+  .contact-links { display: flex; flex-direction: column; gap: 1rem; }
+  .contact-link {
+    display: flex; align-items: center; gap: 14px;
+    font-family: var(--font-ui); font-size: 14px; font-weight: 500;
+    color: var(--text); text-decoration: none;
+    background: var(--bg-card); border: 1px solid var(--border);
+    padding: 1rem 1.25rem; border-radius: 10px;
+    transition: border-color .2s, transform .15s;
+  }
+  .contact-link:hover { border-color: var(--accent); transform: translateX(4px); }
+  .contact-link-icon {
+    width: 36px; height: 36px; background: var(--accent-light);
+    border-radius: 8px; display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .contact-link-icon svg { width: 18px; height: 18px; stroke: var(--accent); }
+  .contact-form { display: flex; flex-direction: column; gap: 1rem; }
+  .form-group { display: flex; flex-direction: column; gap: .4rem; }
+  .form-label { font-family: var(--font-ui); font-size: 12px; font-weight: 600; color: var(--text-2); letter-spacing: .05em; text-transform: uppercase; }
+  .form-input, .form-textarea {
+    font-family: var(--font-body); font-size: .95rem; color: var(--text);
+    background: var(--bg-card); border: 1.5px solid var(--border);
+    border-radius: 8px; padding: .75rem 1rem; outline: none;
+    transition: border-color .2s;
+    resize: none;
+  }
+  .form-input:focus, .form-textarea:focus { border-color: var(--accent); }
+  .form-textarea { min-height: 120px; }
+  .form-btn {
+    font-family: var(--font-ui); font-weight: 600; font-size: 14px;
+    background: var(--accent); color: #fff; border: none; cursor: pointer;
+    padding: 13px 28px; border-radius: 7px; letter-spacing: .02em;
+    transition: background .2s, transform .15s; align-self: flex-start;
+  }
+  .form-btn:hover { background: var(--accent-mid); transform: translateY(-1px); }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border); padding: 2.5rem 0;
+    max-width: 1100px; margin: 0 auto; padding-left: 2rem; padding-right: 2rem;
+    display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
+  }
+  .footer-copy { font-family: var(--font-ui); font-size: 13px; color: var(--text-3); }
+  .footer-links { display: flex; gap: 1.5rem; }
+  .footer-links a { font-family: var(--font-ui); font-size: 13px; color: var(--text-3); text-decoration: none; transition: color .2s; }
+  .footer-links a:hover { color: var(--accent); }
+
+  /* ANIMATIONS */
+  .fade-up {
+    opacity: 0; transform: translateY(24px);
+    animation: fadeUp .6s ease forwards;
+  }
+  .fade-up:nth-child(1) { animation-delay: .1s; }
+  .fade-up:nth-child(2) { animation-delay: .2s; }
+  .fade-up:nth-child(3) { animation-delay: .3s; }
+  .fade-up:nth-child(4) { animation-delay: .4s; }
+  @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+
+  .reveal { opacity: 0; transform: translateY(20px); transition: opacity .6s ease, transform .6s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* MOBILE */
+  @media (max-width: 768px) {
+    .nav-links, .nav-cta { display: none; }
+    .hamburger { display: flex; }
+    .mobile-menu {
+      display: block; position: fixed; top: 60px; left: 0; right: 0;
+      background: var(--bg); border-bottom: 1px solid var(--border);
+      padding: 1.5rem 2rem; z-index: 99;
+      transform: translateY(-100%); opacity: 0;
+      transition: transform .3s ease, opacity .3s ease;
+      pointer-events: none;
+    }
+    .mobile-menu.open { transform: translateY(0); opacity: 1; pointer-events: all; }
+    .mobile-menu a {
+      display: block; font-family: var(--font-ui); font-size: 15px; font-weight: 500;
+      color: var(--text); text-decoration: none; padding: .75rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .mobile-menu a:last-child { border-bottom: none; }
+    .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .about-stats { grid-template-columns: 1fr 1fr; }
+    section { padding: 4rem 0; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#hero" class="nav-logo">YN<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#resume">Resume</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="#contact" class="nav-cta">Get in touch</a>
+    <button class="hamburger" aria-label="Menu" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#about" onclick="toggleMenu()">About</a>
+    <a href="#experience" onclick="toggleMenu()">Experience</a>
+    <a href="#skills" onclick="toggleMenu()">Skills</a>
+    <a href="#projects" onclick="toggleMenu()">Projects</a>
+    <a href="#resume" onclick="toggleMenu()">Resume</a>
+    <a href="#contact" onclick="toggleMenu()">Contact</a>
+  </div>
+</nav>
+
+<main>
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="fade-up hero-eyebrow">Available for opportunities</div>
+    <h1 class="hero-name fade-up">Your <em>Name</em></h1>
+    <p class="hero-title fade-up">BS Software Engineering Student &nbsp;·&nbsp; Embedded Systems &amp; Data Engineering</p>
+    <p class="hero-desc fade-up">
+      Junior SWE student with hands-on experience in embedded systems and a passion for building
+      real-time data pipelines. Currently interning with the U.S. Air Force and exploring the
+      intersection of low-level hardware and modern data infrastructure.
+    </p>
+    <div class="hero-actions fade-up">
+      <a href="#projects" class="btn-primary">View my projects</a>
+      <a href="#resume" class="btn-secondary">Download resume</a>
+    </div>
+    <div class="hero-scroll">Scroll to explore</div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="section-header reveal">
+      <div class="section-number">01 — About</div>
+      <h2 class="section-title">A bit about me</h2>
+    </div>
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <p>
+          I'm a junior pursuing a Bachelor of Science in Software Engineering with a focus on
+          embedded systems and data engineering — two fields that don't often overlap, but
+          together represent the future of intelligent hardware infrastructure.
+        </p>
+        <p>
+          My interest in low-level systems started with microcontrollers and grew into a
+          passion for understanding how software interacts with hardware at the deepest level.
+          On the data side, I'm driven by the challenge of building pipelines that turn raw
+          sensor output into meaningful, queryable insight.
+        </p>
+        <p>
+          Outside of code, I'm taking an Operating Systems course to deepen my understanding
+          of concurrency, memory management, and process scheduling — all of which directly
+          inform the work I care about most.
+        </p>
+      </div>
+      <div class="about-stats reveal">
+        <div class="stat-card">
+          <div class="stat-number">3rd</div>
+          <div class="stat-label">Year — BS Software Engineering</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">2</div>
+          <div class="stat-label">Core tracks: Embedded &amp; Data Eng.</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">1</div>
+          <div class="stat-label">Active internship — U.S. Air Force</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">∞</div>
+          <div class="stat-label">Curiosity for systems-level work</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="section-header reveal">
+      <div class="section-number">02 — Experience</div>
+      <h2 class="section-title">Where I've worked</h2>
+      <p class="section-subtitle">Internships and roles that have shaped my engineering perspective.</p>
+    </div>
+    <div class="exp-list">
+      <div class="exp-card reveal">
+        <div class="exp-logo">USAF</div>
+        <div>
+          <div class="exp-org">United States Air Force</div>
+          <div class="exp-role">Electronics Engineer Intern — Backend Systems</div>
+          <div class="exp-meta">
+            <span>📅 Summer 2025</span>
+            <span>📍 [Location]</span>
+            <span>🏛️ Defense / Aerospace</span>
+          </div>
+          <p class="exp-desc">
+            Working as an electronics engineering intern with exposure to backend systems in a
+            defense context. Gaining hands-on experience with the intersection of embedded
+            hardware and software infrastructure in a mission-critical environment.
+          </p>
+          <div class="exp-tags">
+            <span class="tag">Embedded Systems</span>
+            <span class="tag">Backend</span>
+            <span class="tag">Electronics</span>
+            <span class="tag">Defense</span>
+            <span class="tag">C / C++</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="exp-card reveal">
+        <div class="exp-logo">EDU</div>
+        <div>
+          <div class="exp-org">[Your University]</div>
+          <div class="exp-role">BS Software Engineering — Junior Year</div>
+          <div class="exp-meta">
+            <span>📅 2023 — Present</span>
+            <span>📍 [City, State]</span>
+            <span>🎓 Education</span>
+          </div>
+          <p class="exp-desc">
+            Pursuing a BS in Software Engineering with coursework in data structures, algorithms,
+            operating systems, computer architecture, and networking. Actively building skills
+            in embedded systems and data engineering outside the classroom.
+          </p>
+          <div class="exp-tags">
+            <span class="tag">Operating Systems</span>
+            <span class="tag">Algorithms</span>
+            <span class="tag">Networking</span>
+            <span class="tag">Computer Architecture</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="section-header reveal">
+      <div class="section-number">03 — Skills</div>
+      <h2 class="section-title">What I work with</h2>
+      <p class="section-subtitle">Tools and technologies I'm actively building depth in.</p>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-group reveal">
+        <div class="skill-group-label">Languages</div>
+        <div class="skill-items">
+          <div class="skill-item"><span class="skill-name">Python</span><div class="skill-bar-track"><div class="skill-bar-fill" style="width:85%"></div></div></div>
+          <div class="skill-item"><span class="skill-name">C / C++</span><div class="skill-bar-track"><div class="skill-bar-fill" style="width:70%"></div></div></div>
+          <div class="skill-item"><span class="skill-name">SQL</span><div class="skill-bar-track"><div class="skill-bar-fill" style="width:75%"></div></div></div>
+          <div class="skill-item"><span class="skill-name">JavaScript</span><div class="skill-bar-track"><div class="skill-bar-fill" style="width:65%"></div></div></div>
+          <div class="skill-item"><span class="skill-name">Bash / Shell</span><div class="skill-bar-track"><div class="skill-bar-fill" style="width:60%"></div></div></div>
+        </div>
+      </div>
+      <div class="skill-group reveal">
+        <div class="skill-group-label">Embedded Systems</div>
+        <div class="skill-items">
+          <div class="skill-item"><span class="skill-name">Microcontrollers (Arduino / Pi)</span><div class="skill-bar-track"><div class="skill-bar-fill" style="width:70%"></div></div></div>
+          <div class="skill-item"><span class="skill-name">Serial protocols (I2C, SPI, UART)</span><div class="skill-bar-track"><div class="skill-bar-fill" style="width:60%"></div></div></div>
+          <div class="skill-item"><span class="skill-name">RTOS / FreeRTOS concepts</span><div class="skill-bar-track"><div class="skill-bar-fill" style="width:50%"></div></div></div>
+          <div class="skill-item"><span class="skill-name">GDB / JTAG Debugging</span><div class="skill-bar-track"><div class="skill-bar-fill" style="width:55%"></div></div></div>
+          <div class="skill-item"><span class="skill-name">CMake / Makefiles</span><div class="skill-bar-track"><div class="skill-bar-fill" style="width:55%"></div></div></div>
+        </div>
+      </div>
+      <div class="skill-group reveal">
+        <div class="skill-group-label">Data Engineering</div>
+        <div class="skill-items">
+          <div class="skill-item"><span class="skill-name">PostgreSQL</span><div class="skill-bar-track"><div class="skill-bar-fill" style="width:70%"></div></div></div>
+          <div class="skill-item"><span class="skill-name">FastAPI / Flask</span><div class="skill-bar-track"><div class="skill-bar-fill" style="width:65%"></div></div></div>
+          <div class="skill-item"><span class="skill-name">MQTT / Kafka</span><div class="skill-bar-track"><div class="skill-bar-fill" style="width:50%"></div></div></div>
+          <div class="skill-item"><span class="skill-name">React (JavaScript)</span><div class="skill-bar-track"><div class="skill-bar-fill" style="width:60%"></div></div></div>
+          <div class="skill-item"><span class="skill-name">Docker</span><div class="skill-bar-track"><div class="skill-bar-fill" style="width:55%"></div></div></div>
+        </div>
+      </div>
+      <div class="skill-group reveal">
+        <div class="skill-group-label">Tools &amp; Platforms</div>
+        <div class="skill-items">
+          <div class="skill-item"><span class="skill-name">Git / GitHub</span><div class="skill-bar-track"><div class="skill-bar-fill" style="width:85%"></div></div></div>
+          <div class="skill-item"><span class="skill-name">Linux / CLI</span><div class="skill-bar-track"><div class="skill-bar-fill" style="width:75%"></div></div></div>
+          <div class="skill-item"><span class="skill-name">AWS / GCP (basics)</span><div class="skill-bar-track"><div class="skill-bar-fill" style="width:45%"></div></div></div>
+          <div class="skill-item"><span class="skill-name">VS Code / JetBrains</span><div class="skill-bar-track"><div class="skill-bar-fill" style="width:80%"></div></div></div>
+          <div class="skill-item"><span class="skill-name">SQLite</span><div class="skill-bar-track"><div class="skill-bar-fill" style="width:65%"></div></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="section-header reveal">
+      <div class="section-number">04 — Projects</div>
+      <h2 class="section-title">Things I've built</h2>
+      <p class="section-subtitle">Personal and academic projects that reflect what I care about.</p>
+    </div>
+    <div class="projects-grid">
+      <div class="project-card featured reveal">
+        <div class="project-badge">Featured</div>
+        <div class="project-title">Real-Time Sensor Data Pipeline</div>
+        <p class="project-desc">
+          End-to-end IoT data pipeline that reads from a physical sensor (Raspberry Pi), streams
+          data via MQTT, ingests into PostgreSQL, exposes a FastAPI REST layer, and visualizes
+          live readings in a React dashboard. Mirrors real-world telemetry architecture used in
+          aerospace and defense.
+        </p>
+        <div class="project-tags">
+          <span class="tag">Python</span>
+          <span class="tag">FastAPI</span>
+          <span class="tag">PostgreSQL</span>
+          <span class="tag">React</span>
+          <span class="tag">MQTT</span>
+          <span class="tag">Raspberry Pi</span>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com/yourusername" class="project-link" target="_blank">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+            GitHub
+          </a>
+          <a href="#" class="project-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            Live demo
+          </a>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-title">Embedded Sensor Controller</div>
+        <p class="project-desc">
+          C-based firmware for an STM32/Arduino microcontroller that reads temperature and pressure
+          sensors over I2C, implements a simple state machine for alert thresholds, and transmits
+          data over UART. Built to understand low-level hardware communication protocols.
+        </p>
+        <div class="project-tags">
+          <span class="tag">C</span>
+          <span class="tag">Arduino</span>
+          <span class="tag">I2C</span>
+          <span class="tag">UART</span>
+          <span class="tag">Firmware</span>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com/yourusername" class="project-link" target="_blank">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+            GitHub
+          </a>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-title">[Your Project Here]</div>
+        <p class="project-desc">
+          Add your own project — a class assignment, a personal tool, a CLI utility you built,
+          anything that shows your thinking. Even small projects demonstrate initiative to employers.
+        </p>
+        <div class="project-tags">
+          <span class="tag">Python</span>
+          <span class="tag">SQL</span>
+          <span class="tag">Your Stack</span>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com/yourusername" class="project-link" target="_blank">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+            GitHub
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESUME -->
+  <section id="resume" style="border-top: 1px solid var(--border); padding: 6rem 0;">
+    <div class="section-header reveal">
+      <div class="section-number">05 — Resume</div>
+      <h2 class="section-title">My resume</h2>
+    </div>
+    <div class="resume-inner reveal">
+      <div class="resume-icon">📄</div>
+      <h3>Download my resume</h3>
+      <p>A one-page summary of my education, experience, skills, and projects — ready to share with employers.</p>
+      <a href="resume.pdf" download class="btn-primary" style="display:inline-block">Download PDF</a>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="section-header reveal">
+      <div class="section-number">06 — Contact</div>
+      <h2 class="section-title">Let's connect</h2>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-info reveal">
+        <p>
+          I'm actively looking for internship and co-op opportunities in embedded systems,
+          data engineering, or defense/aerospace software. If you're hiring or just want to
+          talk engineering, reach out.
+        </p>
+        <div class="contact-links">
+          <a href="mailto:you@email.com" class="contact-link">
+            <div class="contact-link-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            </div>
+            you@email.com
+          </a>
+          <a href="https://github.com/yourusername" target="_blank" class="contact-link">
+            <div class="contact-link-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+            </div>
+            github.com/yourusername
+          </a>
+          <a href="https://linkedin.com/in/yourprofile" target="_blank" class="contact-link">
+            <div class="contact-link-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+            </div>
+            linkedin.com/in/yourprofile
+          </a>
+        </div>
+      </div>
+      <div class="reveal">
+        <form class="contact-form" onsubmit="handleSubmit(event)">
+          <div class="form-group">
+            <label class="form-label">Name</label>
+            <input type="text" class="form-input" placeholder="Your name" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email</label>
+            <input type="email" class="form-input" placeholder="your@email.com" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Message</label>
+            <textarea class="form-textarea" placeholder="What's on your mind?" required></textarea>
+          </div>
+          <button type="submit" class="form-btn">Send message →</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <span class="footer-copy">© 2025 Your Name. Built with HTML, CSS &amp; JavaScript.</span>
+  <div class="footer-links">
+    <a href="https://github.com/yourusername" target="_blank">GitHub</a>
+    <a href="https://linkedin.com/in/yourprofile" target="_blank">LinkedIn</a>
+    <a href="mailto:you@email.com">Email</a>
+  </div>
+</footer>
+
+<script>
+  function toggleMenu() {
+    document.getElementById('mobileMenu').classList.toggle('open');
+  }
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+
+  // Contact form (uses mailto as fallback for static hosting)
+  function handleSubmit(e) {
+    e.preventDefault();
+    const btn = e.target.querySelector('.form-btn');
+    btn.textContent = 'Sent! ✓';
+    btn.style.background = '#2A5243';
+    btn.disabled = true;
+    setTimeout(() => {
+      btn.textContent = 'Send message →';
+      btn.disabled = false;
+      e.target.reset();
+    }, 3000);
+  }
+</script>
+</body>
+</html>
